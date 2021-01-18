@@ -1,25 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
+import { Component } from 'react';
+import Login from './components/LoginReg/login'
+import Maneger from "./components/maneger/mangerHome"
+import Client from "./components/client/clientHome"
 
-function App() {
+
+UNLOGEDIN = 0
+CLIENTUSER = 1
+MANEGERUSER = 2
+
+
+
+
+
+
+class App extends Component{
+
+constructor(){
+  super()
+  this.state = {
+    userStatus:0,
+    userId:null
+  }
+}
+
+
+render(){
+  let currentPage = null
+  if(this.state.userStatus == UNLOGEDIN){
+    currentPage = <Login logeIn = {this.setState} />
+  }else if (this.state.userStatus == MANEGERUSER){
+    currentPage = <Maneger mangerId = {this.state.userId}/>
+  }else if (this.state.userStatus == CLIENTUSER){
+    currentPage = <Client clientId = {this.state.userId}/>
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+      <div>
+        {currentPage}
+      </div>
   );
 }
+
+} 
 
 export default App;
